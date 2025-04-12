@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">My Blog</a>
+            <div class="d-flex">
+                <a href="/create" class="btn btn-success me-2">Create New Blog</a>
+                <a href="/logout" class="btn btn-danger">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Content -->
+    <div class="container mt-4">
+        <h2 class="text-center">Welcome, {{ username }}</h2>
+        <hr>
+
+        <div class="row">
+            {% for post in posts %}
+                <div class="col-md-8 offset-md-2 mb-4">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h3 class="card-title">{{ post.title }}</h3>
+                            <p class="text-muted">Author: {{ post.author }} | Date: {{ post.date }}</p>
+                            <a href="/view/{{ post.id }}" class="btn btn-primary">View</a>
+                            {% if post.author == username %}
+                                <a href="/update/{{ post.id }}" class="btn btn-warning">Update</a>
+                                <a href="/delete/{{ post.id }}" class="btn btn-danger">Delete</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
